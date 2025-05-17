@@ -18,14 +18,14 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client", "src"),
+      "@": path.resolve(__dirname, "client/src"), // Fixed path
       "@shared": path.resolve(__dirname, "shared"),
       "@assets": path.resolve(__dirname, "attached_assets"),
     },
   },
-  root: "client", // relative root is fine
+  root: path.resolve(__dirname, "client"),
   build: {
-    outDir: "../dist",
+    outDir: path.resolve(__dirname, "dist"), // Keeping this as final output
     emptyOutDir: true,
   },
 });
