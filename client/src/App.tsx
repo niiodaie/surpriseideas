@@ -1,37 +1,75 @@
 import { useState } from "react";
-import Footer from "./components/Footer";
+import axios from "axios";
 
 function App() {
-  const [ideas] = useState([
+  const [email, setEmail] = useState("");
+  const [ideas, setIdeas] = useState([
     "Surprise picnic",
     "Custom gift box",
     "Adventure day",
   ]);
 
-  return (
-    <div className="min-h-screen flex flex-col justify-between items-center px-4 py-8 bg-white text-black">
-      <main className="w-full max-w-xl flex flex-col items-center gap-6">
-        <h1 className="text-3xl md:text-4xl font-bold text-center">
-          Surprise Ideas Generator
-        </h1>
+  const sendEmail = async () => {
+    if (!email) return alert("Please enter an email address.");
+    try {
+      await axios.post("/api/send-email", { email, ideas });
+      alert("Surprise ideas sent!");
+    } catch (error) {
+      alert("Failed to send email.");
+    }
+  };
 
-        <ul className="text-left text-lg list-disc pl-5 space-y-1">
+  return (
+    <div className="min-h-screen flex flex-col justify-between bg-white text-gray-900 px-4 py-10">
+      <main className="max-w-2xl mx-auto text-center">
+        <h1 className="text-4xl font-bold mb-6">Surprise Ideas Generator</h1>
+        <ul className="text-left text-lg space-y-2 mb-6">
           {ideas.map((idea, index) => (
-            <li key={index}>{idea}</li>
+            <li key={index} className="list-disc list-inside">
+              {idea}
+            </li>
           ))}
         </ul>
-
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700">
-          Send to Email
-        </button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full sm:w-96 border border-gray-300 px-4 py-2 rounded-md"
+          />
+          <button
+            onClick={sendEmail}
+            className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+          >
+            Send to Email
+          </button>
+        </div>
       </main>
 
-      <Footer />
+      {/* Footer */}
+      <footer className="text-center text-sm text-gray-500 mt-16">
+        <p>
+          Built with 💡 by{" "}
+          <a
+            href="https://visnec.ai"
+            className="text-blue-600 hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visnec
+          </a>{" "}
+          |{" "}
+          <a
+            href="https://github.com/niiodaie/surpriseideas"
+            className="hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }
