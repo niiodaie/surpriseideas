@@ -1,64 +1,48 @@
- import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 
-const App: React.FC = () => {
+export default function App() {
+  const [ideas] = useState([
+    "Surprise picnic",
+    "Custom gift box",
+    "Adventure day",
+  ]);
   const [email, setEmail] = useState("");
-  const [ideas, setIdeas] = useState(["Surprise picnic", "Custom gift box", "Adventure day"]);
-  const [message, setMessage] = useState("");
 
-  const handleSendEmail = async () => {
-    try {
-      await axios.post("/api/send-email", {
-        email,
-        ideas,
-      });
-      setMessage("✅ Surprise ideas sent!");
-      setEmail("");
-    } catch (error) {
-      setMessage("❌ Something went wrong. Try again.");
-    }
+  const handleSendEmail = () => {
+    // Basic placeholder – logic goes here
+    alert(`Ideas will be sent to: ${email}`);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 flex flex-col items-center justify-center px-4">
-      <div className="bg-white shadow-xl rounded-2xl max-w-md w-full p-8">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          🎉 Surprise Ideas Generator
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="max-w-xl w-full bg-white p-8 rounded-xl shadow-md space-y-6 text-center">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Surprise Ideas Generator
         </h1>
 
-        <ul className="list-disc pl-5 text-gray-700 mb-6">
+        <ul className="text-left list-disc list-inside text-gray-700 space-y-1">
           {ideas.map((idea, index) => (
             <li key={index}>{idea}</li>
           ))}
         </ul>
 
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <div className="space-y-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <button
-          onClick={handleSendEmail}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-semibold transition"
-        >
-          Send to Email
-        </button>
-
-        {message && (
-          <p className="mt-4 text-sm text-center text-green-600 font-medium">
-            {message}
-          </p>
-        )}
+          <button
+            onClick={handleSendEmail}
+            className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          >
+            Send to Email
+          </button>
+        </div>
       </div>
-
-      <footer className="mt-8 text-gray-500 text-sm">
-        © {new Date().getFullYear()} Visnec AI Tools
-      </footer>
-    </div>
+    </main>
   );
-};
-
-export default App;
+}
