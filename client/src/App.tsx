@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import axios from "axios";
 
 const App: React.FC = () => {
@@ -12,10 +12,10 @@ const App: React.FC = () => {
         email,
         ideas,
       });
-      setMessage("Surprise ideas sent successfully!");
+      setMessage("✅ Surprise ideas sent!");
       setEmail("");
     } catch (error) {
-      setMessage("Something went wrong. Please try again.");
+      setMessage("❌ Something went wrong. Try again.");
     }
   };
 
