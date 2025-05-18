@@ -1,10 +1,11 @@
-\@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   @apply font-sans;
 }
+
 
 :root {
       --background: 0 0% 100%;
