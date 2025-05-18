@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply font-sans;
+}
+
 :root {
       --background: 0 0% 100%;
 --foreground: 20 14.3% 4.1%;
@@ -49,7 +53,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+  
   }
 
   body {
